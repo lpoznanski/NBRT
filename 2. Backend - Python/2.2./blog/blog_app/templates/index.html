@@ -1,15 +1,15 @@
 {%  extends 'base.html' %}
 
 {% block content %}
-
 {% if user.is_authenticated %}
     Hi {{ user.username }}!
     <a href="{% url 'logout' %}">Log out</a>
+    <div>
+        <a href="{% url 'add-post' %}">Add post</a> or <a href="">see your posts and drafts</a>
+    </div>
 {% else %}
     <a href="{% url 'signup' %}">Sign up</a> or <a href="{% url 'login' %}">Log In</a>
 {% endif %}
-
-
 {% for post in post_list %}
     <div>
         <h2>{{ post.title }}</h2>
