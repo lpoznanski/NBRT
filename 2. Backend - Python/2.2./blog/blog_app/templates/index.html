@@ -5,7 +5,7 @@
     Hi {{ user.username }}!
     <a href="{% url 'logout' %}">Log out</a>
     <div>
-        <a href="{% url 'add-post' %}">Add post</a> or <a href="">see your posts and drafts</a>
+        <a href="{% url 'add-post' %}">Add post</a>
     </div>
 {% else %}
     <a href="{% url 'signup' %}">Sign up</a> or <a href="{% url 'login' %}">Log In</a>
@@ -16,6 +16,9 @@
         <p>{{ post.author }} | {{ post.created_on }}</p>
         <p>{{ post.content|slice:":200" }}</p>
         <a href="{% url 'post-detail' post.slug %}">Read more</a>
+        {% if user == post.author %}
+        <a href="{% url 'edit-post' post.slug %}">Update</a>
+        {% endif %}
     </div>
 {% endfor %}
 

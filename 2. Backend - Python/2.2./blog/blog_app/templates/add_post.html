@@ -2,10 +2,13 @@
 
 {% block content %}
 <h2>Add post</h2>
+{% if user.is_authenticated %}
 <form method="post">
   {% csrf_token %}
   {{ form }}
-  <button type="submit">Save draft</button>
   <button name="add" type="submit">Publish</button>
 </form>
+{% else %}
+    <p><a href="{% url 'login' %}">Log in</a> to add post</p>
+{% endif %}
 {% endblock %}
