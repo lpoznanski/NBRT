@@ -1,25 +1,21 @@
 {%  extends 'base.html' %}
 
 {% block content %}
-{% if user.is_authenticated %}
-    Hi {{ user.username }}!
-    <a href="{% url 'logout' %}">Log out</a>
-    <div>
-        <a href="{% url 'add-post' %}">Add post</a>
-    </div>
-{% else %}
-    <a href="{% url 'signup' %}">Sign up</a> or <a href="{% url 'login' %}">Log In</a>
-{% endif %}
-{% for post in post_list %}
-    <div>
-        <h2>{{ post.title }}</h2>
-        <p>{{ post.author }} | {{ post.created_on }}</p>
-        <p>{{ post.content|slice:":200" }}</p>
-        <a href="{% url 'post-detail' post.slug %}">Read more</a>
+
+    <div class="">
+    {% for post in post_list %}
+    <div class="card shadow p-3 mb-5 bg-white rounded">
+        <h4 class="card-header">{{ post.title }}</h4>
+        <p class="text-secondary p-3">{{ post.author }} | {{ post.created_on }}</p>
+        <p class="card-text p-3">{{ post.content|slice:":200" }}</p>
+        <div class="btn-group">
+        <a href="{% url 'post-detail' post.slug %}" class="btn btn-dark">Read more</a>
         {% if user == post.author %}
-        <a href="{% url 'edit-post' post.slug %}">Update</a>
+        <a href="{% url 'edit-post' post.slug %}" class="btn btn-secondary">Update</a>
         {% endif %}
+        </div>
     </div>
 {% endfor %}
+    </div>
 
 {% endblock %}
